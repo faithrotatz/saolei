@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="query.js"></script>
+<style>
+     img{width:40px;height:40px;}
+	.box{width:480px;
+	     height:480px;
+	     background:white;
+	     margin:0 auto;
+
+	     }
+	.block{width:38px;
+	       height:38px;
+	       margin:1px;
+	       float:left;
+	       background:white}
+	.red{background:#006699}
+	.black{background:#333399}
+	.blue{background:#993300}
+	.green{background:#FF6633}
+	div{text-align:center;
+	line-height:40px;
+	font-size:20px;
+	color:white;}
+</style>
+<body>
+	<div class="box">
+		
+	</div>
+</body>
+</html>
+<script>
+	$(function(){
+
+	var map=function(){
+	  var $el=$(".div");
+	  var color=['red','black','blue','green'] 
+	  var row=10; 
+      var h="";
+      for(var i=0;i<(row+2)*(row+2);i++){
+      h+="<div></div>"
+      }
+    $(".box ").html(h).find("div").addClass("block")
+    $("div:gt(12)").addClass("red");
+    $("div:gt(132)").removeClass("red");
+    $("div:nth-child(12n)").removeClass("red");
+    $("div:nth-child(12n+1)").removeClass("red");
+    $(".red").addClass(function(i){
+       return  color[i%4]
+    });
+    $('.block').not('.red').css('background','white');
+	};
+    
+	map();
+    var lei=function(){
+     $(".red").each(function(i,obj){
+       if(Math.random()>0.9){
+       $(obj).data('islei','true')
+       }
+     });
+
+    };lei();
+  
+    var danji=function(){
+    $(".red").click(function(){
+    if($(this).data('islei')){
+    $(".red").each(function(i,obj){
+    if($(obj).data('islei')){$(obj).css({'background-image':'url(2.jpg)','background-position':'center center','background-repeate':'no-repeate','background-size':'40px 40px'})}
+     
+    })
+
+    }else{
+    
+      var shu=0;
+      var cc=$(this).index();
+
+      if($(".block").eq(cc-1).data('islei')){shu++}
+      if($(".block").eq(cc+1).data('islei')){shu++}
+      if($(".block").eq(cc-12).data('islei')){shu++}
+      if($(".block").eq(cc-13).data('islei')){shu++}
+      if($(".block").eq(cc-11).data('islei')){shu++}
+      if($(".block").eq(cc+12).data('islei')){shu++}
+      if($(".block").eq(cc+11).data('islei')){shu++}
+      if($(".block").eq(cc+13).data('islei')){shu++};
+      $(this).html(shu);
+
+
+      }
+
+
+
+    
+       
+    })
+
+
+    };danji();
+    
+
+
+
+	})
+
+</script>
